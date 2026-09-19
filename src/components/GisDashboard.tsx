@@ -65,15 +65,15 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
   };
 
   return (
-    <div className="w-full h-[calc(100vh-73px)] p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 bg-[#0F172A]">
+    <div className="w-full min-h-[calc(100vh-73px)] lg:h-[calc(100vh-73px)] p-2 sm:p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 bg-[#0F172A] overflow-y-auto lg:overflow-hidden">
       
       {/* =========================================================
-          1. LEFT PANEL (30% Width -> lg:col-span-3.5 or col-span-3.5)
+          1. LEFT PANEL (30% Width -> lg:col-span-4 xl:col-span-3.5)
          ========================================================= */}
-      <section className="lg:col-span-4 xl:col-span-3.5 flex flex-col gap-3 h-full overflow-y-auto pr-1">
+      <section className="lg:col-span-4 xl:col-span-3.5 flex flex-col gap-3 h-auto lg:h-full lg:overflow-y-auto pr-0 lg:pr-1">
         
         {/* VLM Agentic Prompt Card */}
-        <div className="glass-panel rounded-xl p-4 flex flex-col gap-3 border border-[#00E5FF]/20 shadow-cyan-glow">
+        <div className="glass-panel rounded-xl p-3 sm:p-4 flex flex-col gap-3 border border-[#00E5FF]/20 shadow-cyan-glow">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-[#00E5FF] flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-[#00E5FF] animate-pulse" />
@@ -157,7 +157,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         </div>
 
         {/* Specialist Tool Registry Status (PRD Requirement) */}
-        <div className="glass-panel rounded-xl p-4 flex flex-col gap-3 border border-slate-700/60">
+        <div className="glass-panel rounded-xl p-3 sm:p-4 flex flex-col gap-3 border border-slate-700/60">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
               <Cpu className="w-4 h-4 text-[#38BDF8]" />
@@ -206,7 +206,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
       {/* =========================================================
           2. CENTER PANEL (45% Width -> lg:col-span-5.5)
          ========================================================= */}
-      <section className="lg:col-span-5 xl:col-span-5.5 h-full flex flex-col">
+      <section className="lg:col-span-5 xl:col-span-5.5 h-[420px] sm:h-[500px] lg:h-full flex flex-col min-h-[380px]">
         <MapComponent
           selectedQuery={selectedQuery}
           opticalLayerActive={opticalLayerActive}
@@ -221,7 +221,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
       {/* =========================================================
           3. RIGHT PANEL (25% Width -> lg:col-span-3)
          ========================================================= */}
-      <section className="lg:col-span-3 xl:col-span-3 flex flex-col gap-3 h-full overflow-y-auto pl-1">
+      <section className="lg:col-span-3 xl:col-span-3 flex flex-col gap-3 h-auto lg:h-full lg:overflow-y-auto pl-0 lg:pl-1">
         
         {/* Summary Metrics Grid */}
         <div className="grid grid-cols-2 gap-2">

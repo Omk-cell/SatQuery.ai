@@ -21,7 +21,7 @@ export const BenchmarkAnalytics: React.FC = () => {
   const activeEpochData = EPOCH_LOSS_DATA.find((e) => e.epoch === selectedEpoch) || EPOCH_LOSS_DATA[10];
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] p-6 bg-[#0F172A] space-y-6 max-w-[1700px] mx-auto overflow-y-auto">
+    <div className="w-full min-h-[calc(100vh-73px)] p-3 sm:p-6 bg-[#0F172A] space-y-4 sm:space-y-6 max-w-[1700px] mx-auto overflow-y-auto">
       
       {/* Header Banner */}
       <div className="glass-panel rounded-2xl p-6 border border-[#00E5FF]/30 shadow-cyan-glow bg-gradient-to-r from-[#1E293B] via-[#0F172A] to-[#1E293B] relative overflow-hidden">

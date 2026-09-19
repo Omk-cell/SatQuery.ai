@@ -53,7 +53,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] p-6 bg-[#0F172A] space-y-6 max-w-[1700px] mx-auto overflow-y-auto">
+    <div className="w-full min-h-[calc(100vh-73px)] p-3 sm:p-6 bg-[#0F172A] space-y-4 sm:space-y-6 max-w-[1700px] mx-auto overflow-y-auto">
       
       {/* Top Header Controls Bar */}
       <div className="glass-panel rounded-2xl p-6 border border-slate-700/80 shadow-cyan-glow flex flex-col md:flex-row md:items-center justify-between gap-4">

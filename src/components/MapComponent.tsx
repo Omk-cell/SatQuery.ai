@@ -49,11 +49,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       // Add Zoom control on top right
       L.control.zoom({ position: 'topright' }).addTo(map);
 
-      // CARTO Dark Matter tiles (PRD requirement)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-        subdomains: 'abcd',
-        maxZoom: 19,
+      // Free Clean Dark Tile URL (Esri World Dark Gray Base)
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        maxZoom: 16
       }).addTo(map);
 
       // Mousemove listener for spatial status bar
@@ -180,76 +179,82 @@ export const MapComponent: React.FC<MapComponentProps> = ({
 
   return (
     <div className="relative w-full h-full flex flex-col rounded-xl overflow-hidden border border-[#00E5FF]/20 bg-[#0F172A] shadow-cyan-glow">
-      {/* Layer Control Floating Bar (PRD Requirement) */}
-      <div className="absolute top-3 left-3 z-[1000] flex items-center gap-2 p-1.5 rounded-lg bg-[#0F172A]/90 backdrop-blur-md border border-[#00E5FF]/30 shadow-glass text-xs font-medium">
-        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-300 font-bold border-r border-slate-700">
-          <Layers className="w-3.5 h-3.5 text-[#00E5FF]" />
-          <span>Layer Control</span>
+      
+      {/* Map Control Header Bar (Fixes Overlapping Issue) */}
+      <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#0F172A]/95 border-b border-[#00E5FF]/20 text-xs">
+        
+        {/* Layer Control Bar */}
+        <div className="flex flex-wrap items-center gap-1.5 font-medium">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 text-slate-300 font-bold border-r border-slate-700/80">
+            <Layers className="w-3.5 h-3.5 text-[#00E5FF]" />
+            <span>Layer Control</span>
+          </div>
+
+          {/* Sentinel-2 Optical Toggle */}
+          <button
+            onClick={() => setOpticalLayerActive(!opticalLayerActive)}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+              opticalLayerActive
+                ? 'bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/50'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+            }`}
+          >
+            {opticalLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+            <span>Sentinel-2 Optical</span>
+          </button>
+
+          {/* Sentinel-1 SAR Toggle */}
+          <button
+            onClick={() => setSarLayerActive(!sarLayerActive)}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+              sarLayerActive
+                ? 'bg-[#FBBF24]/20 text-[#FBBF24] border border-[#FBBF24]/50'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+            }`}
+          >
+            {sarLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+            <span>Sentinel-1 SAR</span>
+          </button>
+
+          {/* Change Vector Overlay Toggle */}
+          <button
+            onClick={() => setChangeVectorActive(!changeVectorActive)}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+              changeVectorActive
+                ? 'bg-rose-500/20 text-rose-400 border border-rose-500/50'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+            }`}
+          >
+            {changeVectorActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+            <span>Change Vector Overlay</span>
+          </button>
         </div>
 
-        {/* Sentinel-2 Optical Toggle */}
-        <button
-          onClick={() => setOpticalLayerActive(!opticalLayerActive)}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 ${
-            opticalLayerActive
-              ? 'bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-          }`}
-        >
-          {opticalLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-          <span>Sentinel-2 Optical</span>
-        </button>
+        {/* Target Bounding Indicator Pill (Cleanly Positioned) */}
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#00E5FF]/10 border border-[#00E5FF]/40 text-xs font-mono text-[#00E5FF] shadow-cyan-glow truncate max-w-xs">
+          <Sparkles className="w-3.5 h-3.5 animate-spin shrink-0" />
+          <span className="truncate font-semibold">Target: {selectedQuery.label}</span>
+        </div>
 
-        {/* Sentinel-1 SAR Toggle */}
-        <button
-          onClick={() => setSarLayerActive(!sarLayerActive)}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 ${
-            sarLayerActive
-              ? 'bg-[#FBBF24]/20 text-[#FBBF24] border border-[#FBBF24]/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-          }`}
-        >
-          {sarLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-          <span>Sentinel-1 SAR</span>
-        </button>
-
-        {/* Change Vector Overlay Toggle */}
-        <button
-          onClick={() => setChangeVectorActive(!changeVectorActive)}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 ${
-            changeVectorActive
-              ? 'bg-rose-500/20 text-rose-400 border border-rose-500/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-          }`}
-        >
-          {changeVectorActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-          <span>Change Vector Overlay</span>
-        </button>
-      </div>
-
-      {/* Target Bounding Indicator Pill */}
-      <div className="absolute top-3 right-14 z-[1000] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0F172A]/90 backdrop-blur-md border border-[#00E5FF]/30 text-xs font-mono text-[#00E5FF]">
-        <Sparkles className="w-3.5 h-3.5 animate-spin" />
-        <span>Target: {selectedQuery.label}</span>
       </div>
 
       {/* Map Container Element */}
-      <div ref={mapContainerRef} className="w-full flex-1 z-10" />
+      <div ref={mapContainerRef} className="w-full flex-1 z-10 relative" />
 
       {/* Spatial Status Bar (PRD Requirement) */}
-      <div className="z-20 flex items-center justify-between px-4 py-2 bg-[#0F172A]/95 border-t border-[#00E5FF]/20 text-xs font-mono text-slate-300">
-        <div className="flex items-center space-x-3">
+      <div className="z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#0F172A]/95 border-t border-[#00E5FF]/20 text-[10px] sm:text-xs font-mono text-slate-300">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="flex items-center text-[#00E5FF]">
-            <Crosshair className="w-3.5 h-3.5 mr-1" />
-            Active CRS: <strong className="ml-1 text-white">EPSG:4326</strong>
+            <Crosshair className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1" />
+            CRS: <strong className="ml-1 text-white">EPSG:4326</strong>
           </span>
-          <span className="text-slate-600">|</span>
-          <span>
-            Basemap: <strong className="text-slate-200">CARTO Dark Matter</strong>
+          <span className="text-slate-600 hidden sm:inline">|</span>
+          <span className="truncate">
+            Basemap: <strong className="text-slate-200">Esri Dark Gray</strong>
           </span>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3 text-slate-300">
           <span>Lat: <strong className="text-emerald-400">{cursorCoords.lat.toFixed(5)}° N</strong></span>
           <span>Lng: <strong className="text-emerald-400">{cursorCoords.lng.toFixed(5)}° E</strong></span>
         </div>
