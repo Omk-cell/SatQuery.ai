@@ -7,23 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          900: '#0F172A',
-          800: '#1E293B',
-          700: '#334155',
+        surface: {
+          DEFAULT: '#09090b',   // zinc-950 — app background
+          raised: 'rgba(24, 24, 27, 0.50)',  // zinc-900/50 — floating panels
+          overlay: 'rgba(24, 24, 27, 0.80)', // zinc-900/80 — overlays
         },
         cyan: {
-          accent: '#00E5FF',
-          glow: 'rgba(0, 229, 255, 0.25)',
-        },
-        sky: {
-          accent: '#38BDF8',
-        },
-        amber: {
-          gold: '#FBBF24',
+          accent: '#06b6d4',      // softer cyan-500
+          glow: 'rgba(6, 182, 212, 0.18)',
         },
         emerald: {
-          operational: '#34D399',
+          accent: '#34d399',
+        },
+        amber: {
+          accent: '#fbbf24',
+        },
+        sky: {
+          accent: '#38bdf8',
         },
       },
       fontFamily: {
@@ -31,13 +31,28 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'monospace'],
       },
       boxShadow: {
-        'cyan-glow': '0 0 20px rgba(0, 229, 255, 0.25)',
-        'cyan-glow-lg': '0 0 35px rgba(0, 229, 255, 0.4)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        'glow-cyan': '0 0 20px rgba(6, 182, 212, 0.18)',
+        'glow-cyan-lg': '0 0 30px rgba(6, 182, 212, 0.28)',
+        'glow-emerald': '0 0 12px rgba(52, 211, 153, 0.20)',
+        'glow-amber': '0 0 12px rgba(251, 191, 36, 0.15)',
+        'filament': '0 0 8px rgba(56, 189, 248, 0.50)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.40)',
+      },
+      borderColor: {
+        'edge': 'rgba(255, 255, 255, 0.06)',
+        'edge-hover': 'rgba(255, 255, 255, 0.12)',
+        'edge-subtle': 'rgba(255, 255, 255, 0.04)',
       },
       animation: {
         'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'radar-spin': 'spin 4s linear infinite',
+        'filament-pulse': 'filament-pulse 2s ease-in-out infinite',
+      },
+      keyframes: {
+        'filament-pulse': {
+          '0%, 100%': { opacity: '0.85' },
+          '50%': { opacity: '1' },
+        },
       },
     },
   },

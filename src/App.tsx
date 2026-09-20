@@ -109,7 +109,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#09090b] text-zinc-50 flex flex-col font-sans">
       <Header 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 

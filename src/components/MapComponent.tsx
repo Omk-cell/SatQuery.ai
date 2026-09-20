@@ -100,26 +100,26 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       [lat2, lng2],
     ];
 
-    // Create high-contrast #00E5FF animated dashed rectangle overlay
+    // Create cyan animated dashed rectangle overlay
     const rectangle = L.rectangle(bounds, {
-      color: '#00E5FF',
-      weight: 2.5,
+      color: '#06b6d4',
+      weight: 1.5,
       dashArray: '8, 6',
-      fillColor: '#00E5FF',
-      fillOpacity: 0.15,
+      fillColor: '#06b6d4',
+      fillOpacity: 0.08,
       className: 'cyan-dash-overlay',
     }).addTo(map);
 
     // Bind permanent tooltip with agent route name and calibrated confidence score
     const tooltipContent = `
       <div style="font-family: 'Inter', sans-serif; font-size: 11px;">
-        <div style="color: #00E5FF; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+        <div style="color: #67e8f9; font-weight: 600; display: flex; align-items: center; gap: 4px;">
           <span>⚡ ${selectedQuery.route}</span>
         </div>
-        <div style="color: #CBD5E1; margin-top: 2px;">
-          Confidence: <strong style="color: #34D399;">${(selectedQuery.confidence * 100).toFixed(1)}%</strong>
+        <div style="color: #a1a1aa; margin-top: 2px;">
+          Confidence: <strong style="color: #34d399;">${(selectedQuery.confidence * 100).toFixed(1)}%</strong>
         </div>
-        <div style="color: #94A3B8; font-size: 10px; margin-top: 2px; font-family: monospace;">
+        <div style="color: #71717a; font-size: 10px; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">
           CRS: EPSG:4326
         </div>
       </div>
@@ -136,10 +136,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     // Render Optical Layer if active
     if (opticalLayerActive) {
       const optRect = L.rectangle(bounds, {
-        color: '#38BDF8',
+        color: '#38bdf8',
         weight: 1,
-        fillColor: '#38BDF8',
-        fillOpacity: 0.25,
+        fillColor: '#38bdf8',
+        fillOpacity: 0.15,
       }).addTo(map);
       opticalOverlayRef.current = optRect;
     }
@@ -150,11 +150,11 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         [lat1 - 0.01, lng1 - 0.01],
         [lat2 + 0.01, lng2 + 0.01],
       ], {
-        color: '#FBBF24',
-        weight: 1.5,
+        color: '#fbbf24',
+        weight: 1,
         dashArray: '4, 4',
-        fillColor: '#FBBF24',
-        fillOpacity: 0.2,
+        fillColor: '#fbbf24',
+        fillOpacity: 0.12,
       }).addTo(map);
       sarOverlayRef.current = sarRect;
     }
@@ -165,10 +165,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         [lat1 + 0.005, lng1 + 0.005],
         [lat2 - 0.005, lng2 - 0.005],
       ], {
-        color: '#EF4444',
-        weight: 2,
-        fillColor: '#EF4444',
-        fillOpacity: 0.35,
+        color: '#ef4444',
+        weight: 1.5,
+        fillColor: '#ef4444',
+        fillOpacity: 0.20,
       }).addTo(map);
       changeOverlayRef.current = changeRect;
     }
@@ -178,25 +178,25 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   }, [selectedQuery, opticalLayerActive, sarLayerActive, changeVectorActive]);
 
   return (
-    <div className="relative w-full h-full flex flex-col rounded-xl overflow-hidden border border-[#00E5FF]/20 bg-[#0F172A] shadow-cyan-glow">
+    <div className="relative w-full h-full flex flex-col rounded-xl overflow-hidden border border-white/[0.08] bg-[#09090b]">
       
-      {/* Map Control Header Bar (Fixes Overlapping Issue) */}
-      <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#0F172A]/95 border-b border-[#00E5FF]/20 text-xs">
+      {/* Map Control Header Bar */}
+      <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#09090b]/95 backdrop-blur-md border-b border-white/[0.06] text-xs">
         
         {/* Layer Control Bar */}
         <div className="flex flex-wrap items-center gap-1.5 font-medium">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 text-slate-300 font-bold border-r border-slate-700/80">
-            <Layers className="w-3.5 h-3.5 text-[#00E5FF]" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1 text-zinc-400 font-semibold border-r border-white/[0.06]">
+            <Layers className="w-3.5 h-3.5 text-cyan-400/60" />
             <span>Layer Control</span>
           </div>
 
           {/* Sentinel-2 Optical Toggle */}
           <button
             onClick={() => setOpticalLayerActive(!opticalLayerActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
               opticalLayerActive
-                ? 'bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/50'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+                ? 'bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20'
+                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
             }`}
           >
             {opticalLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -206,10 +206,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           {/* Sentinel-1 SAR Toggle */}
           <button
             onClick={() => setSarLayerActive(!sarLayerActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
               sarLayerActive
-                ? 'bg-[#FBBF24]/20 text-[#FBBF24] border border-[#FBBF24]/50'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+                ? 'bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20'
+                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
             }`}
           >
             {sarLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -219,10 +219,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           {/* Change Vector Overlay Toggle */}
           <button
             onClick={() => setChangeVectorActive(!changeVectorActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all duration-150 cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
               changeVectorActive
-                ? 'bg-rose-500/20 text-rose-400 border border-rose-500/50'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent'
+                ? 'bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/20'
+                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
             }`}
           >
             {changeVectorActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -230,10 +230,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           </button>
         </div>
 
-        {/* Target Bounding Indicator Pill (Cleanly Positioned) */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#00E5FF]/10 border border-[#00E5FF]/40 text-xs font-mono text-[#00E5FF] shadow-cyan-glow truncate max-w-xs">
-          <Sparkles className="w-3.5 h-3.5 animate-spin shrink-0" />
-          <span className="truncate font-semibold">Target: {selectedQuery.label}</span>
+        {/* Target Bounding Indicator Pill */}
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/8 ring-1 ring-cyan-500/15 text-xs font-mono text-cyan-400 truncate max-w-xs">
+          <Sparkles className="w-3 h-3 shrink-0" />
+          <span className="truncate font-medium">Target: {selectedQuery.label}</span>
         </div>
 
       </div>
@@ -241,20 +241,20 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       {/* Map Container Element */}
       <div ref={mapContainerRef} className="w-full flex-1 z-10 relative" />
 
-      {/* Spatial Status Bar (PRD Requirement) */}
-      <div className="z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#0F172A]/95 border-t border-[#00E5FF]/20 text-[10px] sm:text-xs font-mono text-slate-300">
+      {/* Spatial Status Bar */}
+      <div className="z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#09090b]/95 backdrop-blur-md border-t border-white/[0.06] text-[10px] sm:text-xs font-mono text-zinc-400">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          <span className="flex items-center text-[#00E5FF]">
+          <span className="flex items-center text-cyan-400/80">
             <Crosshair className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1" />
-            CRS: <strong className="ml-1 text-white">EPSG:4326</strong>
+            CRS: <strong className="ml-1 text-zinc-200">EPSG:4326</strong>
           </span>
-          <span className="text-slate-600 hidden sm:inline">|</span>
+          <span className="text-zinc-700 hidden sm:inline">|</span>
           <span className="truncate">
-            Basemap: <strong className="text-slate-200">Esri Dark Gray</strong>
+            Basemap: <strong className="text-zinc-300">Esri Dark Gray</strong>
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-slate-300">
+        <div className="flex items-center gap-3 text-zinc-400">
           <span>Lat: <strong className="text-emerald-400">{cursorCoords.lat.toFixed(5)}° N</strong></span>
           <span>Lng: <strong className="text-emerald-400">{cursorCoords.lng.toFixed(5)}° E</strong></span>
         </div>
