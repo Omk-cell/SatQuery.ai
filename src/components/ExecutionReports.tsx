@@ -62,7 +62,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-panel rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4"
+        className="glass-panel rounded-none p-6 flex flex-col md:flex-row md:items-center justify-between gap-4"
       >
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -85,7 +85,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
           onClick={downloadAllJson}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="px-4 py-2.5 rounded-lg bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shrink-0 hover:shadow-glow-cyan"
+          className="px-4 py-2.5 rounded-none bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shrink-0 hover:shadow-glow-cyan"
         >
           <Download className="w-4 h-4" />
           <span>Export All Logs (.json)</span>
@@ -93,7 +93,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
       </motion.div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-zinc-900/40 p-4 rounded-xl border border-white/[0.04]">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-zinc-900/40 p-4 rounded-none border border-white/[0.04]">
         
         {/* Search Input */}
         <div className="relative w-full sm:w-80">
@@ -103,7 +103,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search report ID or query text..."
-            className="w-full pl-9 pr-4 py-2 rounded-lg bg-zinc-950 border border-white/[0.06] text-xs text-zinc-100 placeholder-zinc-600 focus:border-cyan-500/30 focus:outline-none focus:ring-1 focus:ring-cyan-500/15 transition-all"
+            className="w-full pl-9 pr-4 py-2 rounded-none bg-zinc-950 border border-white/[0.06] text-xs text-zinc-100 placeholder-zinc-600 focus:border-cyan-500/30 focus:outline-none focus:ring-1 focus:ring-cyan-500/15 transition-all"
           />
         </div>
 
@@ -114,7 +114,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
           <select
             value={selectedRouteFilter}
             onChange={(e) => setSelectedRouteFilter(e.target.value)}
-            className="px-3 py-2 rounded-lg bg-zinc-950 border border-white/[0.06] text-xs text-zinc-200 font-mono focus:border-cyan-500/30 focus:outline-none"
+            className="px-3 py-2 rounded-none bg-zinc-950 border border-white/[0.06] text-xs text-zinc-200 font-mono focus:border-cyan-500/30 focus:outline-none"
           >
             {routesList.map((route, i) => (
               <option key={i} value={route}>
@@ -127,7 +127,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
       </div>
 
       {/* Historical Report Table */}
-      <div className="glass-panel rounded-2xl overflow-hidden">
+      <div className="glass-panel rounded-none overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -169,7 +169,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
 
                     {/* Route */}
                     <td className="py-4 px-4">
-                      <span className="px-2.5 py-1 rounded-full bg-zinc-800/60 ring-1 ring-white/[0.06] text-sky-400 font-mono text-[11px]">
+                      <span className="px-2.5 py-1 rounded-none bg-zinc-800/60 ring-1 ring-white/[0.06] text-sky-400 font-mono text-[11px]">
                         {report.agentRoute}
                       </span>
                     </td>
@@ -196,7 +196,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => setActiveJsonModal(report)}
-                          className="px-2.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 ring-1 ring-white/[0.06] hover:ring-white/[0.10] text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer"
+                          className="px-2.5 py-1.5 rounded-none bg-zinc-900 hover:bg-zinc-800 text-zinc-300 ring-1 ring-white/[0.06] hover:ring-white/[0.10] text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer"
                         >
                           <FileJson className="w-3.5 h-3.5 text-sky-400" />
                           <span>View JSON</span>
@@ -204,7 +204,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
 
                         <button
                           onClick={() => downloadSingleJson(report)}
-                          className="px-2.5 py-1.5 rounded-lg bg-cyan-500/8 hover:bg-cyan-500/15 text-cyan-400 ring-1 ring-cyan-500/15 hover:ring-cyan-500/25 text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer"
+                          className="px-2.5 py-1.5 rounded-none bg-cyan-500/8 hover:bg-cyan-500/15 text-cyan-400 ring-1 ring-cyan-500/15 hover:ring-cyan-500/25 text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>Export</span>
@@ -233,7 +233,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              className="glass-panel rounded-2xl border border-white/[0.10] max-w-2xl w-full p-6 shadow-glass space-y-4"
+              className="glass-panel rounded-none border border-white/[0.10] max-w-2xl w-full p-6 shadow-glass space-y-4"
               style={{ background: 'rgba(24, 24, 27, 0.92)', backdropFilter: 'blur(24px)' }}
             >
               <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
@@ -245,13 +245,13 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
                 </div>
                 <button
                   onClick={() => setActiveJsonModal(null)}
-                  className="text-zinc-500 hover:text-zinc-200 p-1 rounded-lg hover:bg-white/[0.06] transition-colors cursor-pointer"
+                  className="text-zinc-500 hover:text-zinc-200 p-1 rounded-none hover:bg-white/[0.06] transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="bg-zinc-950 p-4 rounded-xl border border-white/[0.04] max-h-96 overflow-y-auto">
+              <div className="bg-zinc-950 p-4 rounded-none border border-white/[0.04] max-h-96 overflow-y-auto">
                 <pre className="json-viewer text-xs">
                   {JSON.stringify(activeJsonModal.rawJson, null, 2)}
                 </pre>
@@ -260,7 +260,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   onClick={() => setActiveJsonModal(null)}
-                  className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-medium cursor-pointer transition-colors"
+                  className="px-4 py-2 rounded-none bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-medium cursor-pointer transition-colors"
                 >
                   Close
                 </button>
@@ -268,7 +268,7 @@ export const ExecutionReports: React.FC<ExecutionReportsProps> = ({ reports }) =
                   onClick={() => downloadSingleJson(activeJsonModal)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-4 py-2 rounded-lg bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer hover:shadow-glow-cyan transition-all"
+                  className="px-4 py-2 rounded-none bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer hover:shadow-glow-cyan transition-all"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download JSON</span>

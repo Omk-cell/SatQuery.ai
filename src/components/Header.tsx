@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, latency
         <div className="flex flex-wrap items-center justify-between w-full lg:w-auto gap-2">
           <div className="flex items-center space-x-2.5">
             {/* Logo Mark */}
-            <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-zinc-800/80 ring-1 ring-white/[0.08] shrink-0">
+            <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-none bg-zinc-800/80 ring-1 ring-white/[0.08] shrink-0">
               <Satellite className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
               <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -67,22 +67,22 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, latency
 
         {/* Center — Pill Segmented Control with Sliding Highlight */}
         <nav className="w-full lg:w-auto overflow-x-auto no-scrollbar">
-          <div className="relative flex items-center bg-zinc-900/80 p-1 rounded-full ring-1 ring-white/[0.06] min-w-max mx-auto lg:mx-0">
+          <div className="relative flex items-center bg-zinc-900/80 p-1 rounded-none ring-1 ring-white/[0.06] min-w-max mx-auto lg:mx-0">
             {TABS.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative z-10 flex items-center space-x-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-medium transition-colors duration-200 cursor-pointer ${
+                className={`relative z-10 flex items-center space-x-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-none text-xs font-medium transition-colors duration-200 cursor-pointer ${
                   activeTab === tab.key
                     ? 'text-zinc-50'
                     : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                {/* Sliding pill background */}
+                {/* Sliding background */}
                 {activeTab === tab.key && (
                   <motion.div
                     layoutId="tab-highlight"
-                    className="absolute inset-0 bg-white/[0.08] rounded-full ring-1 ring-white/[0.08]"
+                    className="absolute inset-0 bg-white/[0.08] rounded-none ring-1 ring-white/[0.08]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}

@@ -74,7 +74,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
       <section className="lg:col-span-4 xl:col-span-3.5 flex flex-col gap-3 h-auto lg:h-full lg:overflow-y-auto pr-0 lg:pr-1">
         
         {/* VLM Agentic Prompt Card */}
-        <div className="glass-panel rounded-xl p-3 sm:p-4 flex flex-col gap-3">
+        <div className="glass-panel rounded-none p-3 sm:p-4 flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <label className="section-label flex items-center gap-1.5 text-zinc-500">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
@@ -92,7 +92,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
                 onChange={(e) => setCustomPromptText(e.target.value)}
                 placeholder="Enter natural language satellite query (e.g., Identify flooding in Sector 4)..."
                 rows={3}
-                className="w-full px-3 py-2.5 rounded-lg bg-zinc-950 border border-white/[0.06] focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/20 text-xs text-zinc-100 placeholder-zinc-600 resize-none transition-all outline-none font-sans"
+                className="w-full px-3 py-2.5 rounded-none bg-zinc-950 border border-white/[0.06] focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/20 text-xs text-zinc-100 placeholder-zinc-600 resize-none transition-all outline-none font-sans"
               />
             </div>
 
@@ -106,9 +106,9 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
                   </span>
                   <span>78%</span>
                 </div>
-                <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="w-full h-1 bg-zinc-800 rounded-none overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 rounded-full glow-bar"
+                    className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 rounded-none glow-bar"
                     initial={{ width: '0%' }}
                     animate={{ width: '78%' }}
                     transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -123,7 +123,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
               disabled={isExecuting || !customPromptText.trim()}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-2.5 px-4 rounded-lg bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:shadow-glow-cyan hover:text-cyan-300"
+              className="w-full py-2.5 px-4 rounded-none bg-zinc-900 gradient-border-cyan text-cyan-400 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:shadow-glow-cyan hover:text-cyan-300"
             >
               {isExecuting ? (
                 <>
@@ -150,7 +150,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
                 <button
                   key={preset.id}
                   onClick={() => handleChipClick(preset)}
-                  className={`relative text-left text-xs px-3 py-2 rounded-lg transition-all duration-200 border flex items-center justify-between cursor-pointer ${
+                  className={`relative text-left text-xs px-3 py-2 rounded-none transition-all duration-200 border flex items-center justify-between cursor-pointer ${
                     selectedQuery.id === preset.id
                       ? 'bg-white/[0.06] border-white/[0.12] text-zinc-100'
                       : 'bg-zinc-900/60 border-white/[0.04] text-zinc-400 hover:border-white/[0.08] hover:text-zinc-200'
@@ -165,7 +165,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         </div>
 
         {/* Specialist Tool Registry Status */}
-        <div className="glass-panel rounded-xl p-3 sm:p-4 flex flex-col gap-3">
+        <div className="glass-panel rounded-none p-3 sm:p-4 flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <h3 className="section-label flex items-center gap-1.5 text-zinc-500">
               <Cpu className="w-3.5 h-3.5 text-sky-400" />
@@ -179,14 +179,14 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
 
           <div className="space-y-2.5">
             {TOOL_REGISTRY_ITEMS.map((tool) => (
-              <div key={tool.id} className="p-2.5 rounded-lg bg-zinc-950/70 border border-white/[0.04] flex flex-col gap-1.5">
+              <div key={tool.id} className="p-2.5 rounded-none bg-zinc-950/70 border border-white/[0.04] flex flex-col gap-1.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-medium text-zinc-300">{tool.name}</span>
                   <span className="font-mono text-[11px] text-cyan-400 font-semibold">{tool.loadPct}%</span>
                 </div>
-                <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="w-full h-1 bg-zinc-800 rounded-none overflow-hidden">
                   <motion.div 
-                    className="h-full bg-gradient-to-r from-sky-400 to-cyan-400 rounded-full shadow-filament"
+                    className="h-full bg-gradient-to-r from-sky-400 to-cyan-400 rounded-none shadow-filament"
                     initial={{ width: 0 }}
                     animate={{ width: `${tool.loadPct}%` }}
                     transition={{ duration: 1.2, ease: 'easeOut', delay: 0.1 }}
@@ -198,16 +198,16 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         </div>
 
         {/* Supported Raster Formats Footer */}
-        <div className="mt-auto glass-panel rounded-xl p-3 text-[11px] text-zinc-500">
+        <div className="mt-auto glass-panel rounded-none p-3 text-[11px] text-zinc-500">
           <p className="font-semibold text-zinc-400 mb-1.5 flex items-center gap-1">
             <Layers2 className="w-3.5 h-3.5 text-cyan-400/60" />
             Supported Raster Formats
           </p>
           <div className="flex flex-wrap gap-1.5">
-            <span className="px-2 py-0.5 rounded-full bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Sentinel-1 SAR</span>
-            <span className="px-2 py-0.5 rounded-full bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Sentinel-2 Optical</span>
-            <span className="px-2 py-0.5 rounded-full bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Multi-band GeoTIFF</span>
-            <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400/80 font-mono text-[10px] ring-1 ring-cyan-500/15">EPSG:4326 CRS</span>
+            <span className="px-2 py-0.5 rounded-none bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Sentinel-1 SAR</span>
+            <span className="px-2 py-0.5 rounded-none bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Sentinel-2 Optical</span>
+            <span className="px-2 py-0.5 rounded-none bg-zinc-800/80 text-zinc-400 font-mono text-[10px] ring-1 ring-white/[0.04]">Multi-band GeoTIFF</span>
+            <span className="px-2 py-0.5 rounded-none bg-cyan-500/10 text-cyan-400/80 font-mono text-[10px] ring-1 ring-cyan-500/15">EPSG:4326 CRS</span>
           </div>
         </div>
 
@@ -237,7 +237,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         <div className="grid grid-cols-2 gap-2">
           
           {/* Route Triggered */}
-          <div className="glass-panel p-2.5 rounded-xl">
+          <div className="glass-panel p-2.5 rounded-none">
             <span className="section-label block mb-1">Route Triggered</span>
             <span className="text-xs font-semibold text-cyan-400 block truncate font-mono" title={activeLog.agent_route}>
               {activeLog.agent_route}
@@ -245,7 +245,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
           </div>
 
           {/* Confidence Score */}
-          <div className="glass-panel p-2.5 rounded-xl">
+          <div className="glass-panel p-2.5 rounded-none">
             <span className="section-label block mb-1">Confidence Score</span>
             <span className="text-xs font-semibold text-emerald-400 font-mono">
               {(activeLog.confidence * 100).toFixed(1)}%
@@ -253,7 +253,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
           </div>
 
           {/* Spatial Standard */}
-          <div className="glass-panel p-2.5 rounded-xl">
+          <div className="glass-panel p-2.5 rounded-none">
             <span className="section-label block mb-1">Spatial Bounds CRS</span>
             <span className="text-xs font-semibold text-sky-400 font-mono">
               {activeLog.spatial_bounds.crs}
@@ -261,7 +261,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
           </div>
 
           {/* Inference Latency */}
-          <div className="glass-panel p-2.5 rounded-xl">
+          <div className="glass-panel p-2.5 rounded-none">
             <span className="section-label block mb-1">Inference Latency</span>
             <span className="text-xs font-semibold text-amber-400 font-mono flex items-center gap-1">
               <Clock className="w-3 h-3" />
@@ -272,7 +272,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         </div>
 
         {/* Triggered Agentic Chain Checklist */}
-        <div className="glass-panel rounded-xl p-3 flex flex-col gap-2">
+        <div className="glass-panel rounded-none p-3 flex flex-col gap-2">
           <h3 className="section-label flex items-center gap-1.5 text-zinc-500">
             <Terminal className="w-3.5 h-3.5 text-cyan-400/60" />
             Triggered Agentic Chain
@@ -285,7 +285,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.08, duration: 0.3 }}
-                className="flex items-center justify-between p-2 rounded-lg bg-zinc-950/80 border border-white/[0.04] text-xs"
+                className="flex items-center justify-between p-2 rounded-none bg-zinc-950/80 border border-white/[0.04] text-xs"
               >
                 <span className="flex items-center gap-2 text-zinc-300 font-mono text-[11px]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -298,7 +298,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
         </div>
 
         {/* Raw Execution Log */}
-        <div className="glass-panel rounded-xl p-3 flex flex-col gap-2 flex-1 min-h-[220px]">
+        <div className="glass-panel rounded-none p-3 flex flex-col gap-2 flex-1 min-h-[220px]">
           <div className="flex items-center justify-between">
             <h3 className="section-label flex items-center gap-1.5 text-zinc-500">
               <FileJson className="w-3.5 h-3.5 text-sky-400/60" />
@@ -310,7 +310,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
             </span>
           </div>
 
-          <div className="flex-1 bg-zinc-950 p-3 rounded-lg border border-white/[0.04] overflow-y-auto max-h-[280px]">
+          <div className="flex-1 bg-zinc-950 p-3 rounded-none border border-white/[0.04] overflow-y-auto max-h-[280px]">
             <pre className="json-viewer text-[11px]">
               {JSON.stringify(activeLog, null, 2)}
             </pre>
@@ -321,7 +321,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
             onClick={handleExportJson}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full mt-1 py-2 px-3 rounded-lg bg-zinc-900 hover:bg-zinc-800/80 text-cyan-400 border border-white/[0.06] hover:border-white/[0.10] text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full mt-1 py-2 px-3 rounded-none bg-zinc-900 hover:bg-zinc-800/80 text-cyan-400 border border-white/[0.06] hover:border-white/[0.10] text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Export Verifiable Audit Report (.json)</span>

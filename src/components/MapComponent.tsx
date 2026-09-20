@@ -178,7 +178,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   }, [selectedQuery, opticalLayerActive, sarLayerActive, changeVectorActive]);
 
   return (
-    <div className="relative w-full h-full flex flex-col rounded-xl overflow-hidden border border-white/[0.08] bg-[#09090b]">
+    <div className="relative w-full h-full flex flex-col rounded-none overflow-hidden border border-white/[0.08] bg-[#09090b]">
       
       {/* Map Control Header Bar */}
       <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#09090b]/95 backdrop-blur-md border-b border-white/[0.06] text-xs">
@@ -193,7 +193,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           {/* Sentinel-2 Optical Toggle */}
           <button
             onClick={() => setOpticalLayerActive(!opticalLayerActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               opticalLayerActive
                 ? 'bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20'
                 : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
@@ -206,7 +206,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           {/* Sentinel-1 SAR Toggle */}
           <button
             onClick={() => setSarLayerActive(!sarLayerActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               sarLayerActive
                 ? 'bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20'
                 : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
@@ -219,7 +219,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           {/* Change Vector Overlay Toggle */}
           <button
             onClick={() => setChangeVectorActive(!changeVectorActive)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer text-[11px] ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               changeVectorActive
                 ? 'bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/20'
                 : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
@@ -231,7 +231,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         </div>
 
         {/* Target Bounding Indicator Pill */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/8 ring-1 ring-cyan-500/15 text-xs font-mono text-cyan-400 truncate max-w-xs">
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-none bg-cyan-500/8 ring-1 ring-cyan-500/15 text-xs font-mono text-cyan-400 truncate max-w-xs">
           <Sparkles className="w-3 h-3 shrink-0" />
           <span className="truncate font-medium">Target: {selectedQuery.label}</span>
         </div>

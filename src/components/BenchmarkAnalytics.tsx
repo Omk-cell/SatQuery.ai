@@ -29,7 +29,7 @@ export const BenchmarkAnalytics: React.FC = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-panel rounded-2xl p-6 relative overflow-hidden"
+        className="glass-panel rounded-none p-6 relative overflow-hidden"
       >
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-cyan-500/[0.04] to-transparent pointer-events-none" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
@@ -53,11 +53,11 @@ export const BenchmarkAnalytics: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div className="p-3 rounded-xl bg-zinc-950 border border-white/[0.06] text-center">
+            <div className="p-3 rounded-none bg-zinc-950 border border-white/[0.06] text-center">
               <span className="section-label block">Total Gain</span>
               <span className="text-xl font-bold text-emerald-400 font-mono">+27.9% avg</span>
             </div>
-            <div className="p-3 rounded-xl bg-zinc-950 border border-white/[0.06] text-center">
+            <div className="p-3 rounded-none bg-zinc-950 border border-white/[0.06] text-center">
               <span className="section-label block">Train Parameters</span>
               <span className="text-xl font-bold text-sky-400 font-mono">1.2% (LoRA)</span>
             </div>
@@ -73,7 +73,7 @@ export const BenchmarkAnalytics: React.FC = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.1 }}
-            className="glass-panel-interactive rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4"
+            className="glass-panel-interactive rounded-none p-5 sm:p-6 flex flex-col justify-between space-y-4"
           >
             <div className="flex items-start justify-between">
               <div>
@@ -99,9 +99,9 @@ export const BenchmarkAnalytics: React.FC = () => {
                   </span>
                   <span className="font-mono font-semibold text-cyan-400">{card.ourScore}%</span>
                 </div>
-                <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="w-full h-1 bg-zinc-800 rounded-none overflow-hidden">
                   <motion.div 
-                    className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-full shadow-filament"
+                    className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-none shadow-filament"
                     initial={{ width: 0 }}
                     animate={{ width: `${card.ourScore}%` }}
                     transition={{ duration: 1, ease: 'easeOut', delay: 0.3 + idx * 0.1 }}
@@ -115,9 +115,9 @@ export const BenchmarkAnalytics: React.FC = () => {
                   <span className="text-zinc-500">Generic VLM Baseline</span>
                   <span className="font-mono text-zinc-500">{card.baselineScore}%</span>
                 </div>
-                <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="w-full h-1 bg-zinc-800 rounded-none overflow-hidden">
                   <motion.div 
-                    className="h-full bg-zinc-600 rounded-full"
+                    className="h-full bg-zinc-600 rounded-none"
                     initial={{ width: 0 }}
                     animate={{ width: `${card.baselineScore}%` }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 + idx * 0.1 }}
@@ -141,7 +141,7 @@ export const BenchmarkAnalytics: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
         
         {/* LoRA Loss Graph across 11 Epochs */}
-        <div className="lg:col-span-8 glass-panel rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-8 glass-panel rounded-none p-5 sm:p-6 flex flex-col justify-between space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h3 className="text-base font-bold text-zinc-50 flex items-center gap-2">
@@ -154,11 +154,11 @@ export const BenchmarkAnalytics: React.FC = () => {
             </div>
             <div className="flex items-center gap-3 text-xs font-mono">
               <span className="inline-flex items-center gap-1.5 text-cyan-400">
-                <span className="w-2.5 h-1 rounded-full bg-cyan-400"></span>
+                <span className="w-2.5 h-1 rounded-none bg-cyan-400"></span>
                 LoRA Loss
               </span>
               <span className="inline-flex items-center gap-1.5 text-emerald-400">
-                <span className="w-2.5 h-1 rounded-full bg-emerald-400"></span>
+                <span className="w-2.5 h-1 rounded-none bg-emerald-400"></span>
                 Val Accuracy %
               </span>
             </div>
@@ -178,7 +178,7 @@ export const BenchmarkAnalytics: React.FC = () => {
                   className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer relative"
                 >
                   {/* Tooltip on hover */}
-                  <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-zinc-900/95 backdrop-blur-md border border-white/[0.08] text-[10px] font-mono px-2 py-1.5 rounded-lg shadow-lg z-20 pointer-events-none whitespace-nowrap text-center">
+                  <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-zinc-900/95 backdrop-blur-md border border-white/[0.08] text-[10px] font-mono px-2 py-1.5 rounded-none shadow-lg z-20 pointer-events-none whitespace-nowrap text-center">
                     <div className="text-zinc-300">Epoch {item.epoch}</div>
                     <div className="text-cyan-400">Loss: {item.loraLoss}</div>
                     <div className="text-emerald-400">Acc: {item.valAccuracy}%</div>
@@ -188,7 +188,7 @@ export const BenchmarkAnalytics: React.FC = () => {
                   <div className="w-full flex items-end justify-center gap-1 h-full">
                     {/* Loss Bar */}
                     <motion.div 
-                      className={`w-[43%] rounded-t transition-colors duration-200 ${
+                      className={`w-[43%] rounded-none transition-colors duration-200 ${
                         isSelected 
                           ? 'bg-cyan-400 shadow-glow-cyan' 
                           : 'bg-cyan-500/50 group-hover:bg-cyan-500/70'
@@ -199,7 +199,7 @@ export const BenchmarkAnalytics: React.FC = () => {
                     />
                     {/* Accuracy Bar */}
                     <motion.div 
-                      className={`w-[43%] rounded-t transition-colors duration-200 ${
+                      className={`w-[43%] rounded-none transition-colors duration-200 ${
                         isSelected 
                           ? 'bg-emerald-400 shadow-glow-emerald' 
                           : 'bg-emerald-500/50 group-hover:bg-emerald-500/70'
@@ -222,7 +222,7 @@ export const BenchmarkAnalytics: React.FC = () => {
           </div>
 
           {/* Active Epoch Inspector */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-white/[0.06] text-xs font-mono">
+          <div className="flex items-center justify-between p-3 rounded-none bg-zinc-950 border border-white/[0.06] text-xs font-mono">
             <span className="text-zinc-400">Selected: <strong className="text-cyan-400">Epoch {activeEpochData.epoch} / 11</strong></span>
             <span className="text-zinc-400">LoRA Loss: <strong className="text-cyan-400">{activeEpochData.loraLoss}</strong></span>
             <span className="text-zinc-400">Val Accuracy: <strong className="text-emerald-400">{activeEpochData.valAccuracy}%</strong></span>
@@ -230,7 +230,7 @@ export const BenchmarkAnalytics: React.FC = () => {
         </div>
 
         {/* LoRA Model Architecture Specs */}
-        <div className="lg:col-span-4 glass-panel rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-4 glass-panel rounded-none p-5 sm:p-6 flex flex-col justify-between space-y-4">
           <div>
             <h3 className="text-base font-bold text-zinc-50 flex items-center gap-2">
               <Sliders className="w-5 h-5 text-amber-400/70" />
@@ -255,7 +255,7 @@ export const BenchmarkAnalytics: React.FC = () => {
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.06, duration: 0.3 }}
-                className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950 border border-white/[0.04]"
+                className="flex items-center justify-between p-2.5 rounded-none bg-zinc-950 border border-white/[0.04]"
               >
                 <span className="text-zinc-500">{item.label}</span>
                 <span className={`${item.color} font-semibold`}>{item.value}</span>
@@ -263,7 +263,7 @@ export const BenchmarkAnalytics: React.FC = () => {
             ))}
           </div>
 
-          <div className="p-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/15 text-xs text-amber-400">
+          <div className="p-3 rounded-none bg-amber-500/[0.06] border border-amber-500/15 text-xs text-amber-400">
             <p className="font-semibold flex items-center gap-1.5">
               <Zap className="w-4 h-4" />
               Zero-Shot Transfer Verified
