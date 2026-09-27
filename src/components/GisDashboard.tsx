@@ -30,6 +30,7 @@ interface GisDashboardProps {
   onExecuteQuery: (customText: string) => void;
   isExecuting: boolean;
   activeLog: QueryResultLog;
+  theme?: 'dark' | 'light';
 }
 
 export const GisDashboard: React.FC<GisDashboardProps> = ({
@@ -38,6 +39,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
   onExecuteQuery,
   isExecuting,
   activeLog,
+  theme = 'dark',
 }) => {
   const [customPromptText, setCustomPromptText] = useState(selectedQuery.queryText);
   const [opticalLayerActive, setOpticalLayerActive] = useState(true);
@@ -225,6 +227,7 @@ export const GisDashboard: React.FC<GisDashboardProps> = ({
           setOpticalLayerActive={setOpticalLayerActive}
           setSarLayerActive={setSarLayerActive}
           setChangeVectorActive={setChangeVectorActive}
+          theme={theme}
         />
       </section>
 

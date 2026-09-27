@@ -11,6 +11,7 @@ interface MapComponentProps {
   setOpticalLayerActive: React.Dispatch<React.SetStateAction<boolean>>;
   setSarLayerActive: React.Dispatch<React.SetStateAction<boolean>>;
   setChangeVectorActive: React.Dispatch<React.SetStateAction<boolean>>;
+  theme?: 'dark' | 'light';
 }
 
 export const MapComponent: React.FC<MapComponentProps> = ({
@@ -21,9 +22,11 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   setOpticalLayerActive,
   setSarLayerActive,
   setChangeVectorActive,
+  theme = 'dark',
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
+  const baseTileLayerRef = useRef<L.TileLayer | null>(null);
   const rectangleRef = useRef<L.Rectangle | null>(null);
   const opticalOverlayRef = useRef<L.Rectangle | null>(null);
   const sarOverlayRef = useRef<L.Rectangle | null>(null);
@@ -49,12 +52,6 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       // Add Zoom control on top right
       L.control.zoom({ position: 'topright' }).addTo(map);
 
-      // Free Clean Dark Tile URL (Esri World Dark Gray Base)
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-        maxZoom: 16
-      }).addTo(map);
-
       // Mousemove listener for spatial status bar
       map.on('mousemove', (e: L.LeafletMouseEvent) => {
         setCursorCoords({
@@ -74,6 +71,28 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       }
     };
   }, []);
+
+  // Dynamic Tile Layer switching based on Theme
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (baseTileLayerRef.current) {
+      map.removeLayer(baseTileLayerRef.current);
+    }
+
+    const isLight = theme === 'light';
+    const tileUrl = isLight 
+      ? 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+      : 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+
+    const tileLayer = L.tileLayer(tileUrl, {
+      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+      maxZoom: 16
+    }).addTo(map);
+
+    baseTileLayerRef.current = tileLayer;
+  }, [theme]);
 
   // Update bounding overlay and zoom whenever selectedQuery changes
   useEffect(() => {
@@ -181,12 +200,12 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     <div className="relative w-full h-full flex flex-col rounded-none overflow-hidden border border-white/[0.08] bg-[#09090b]">
       
       {/* Map Control Header Bar */}
-      <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#09090b]/95 backdrop-blur-md border-b border-white/[0.06] text-xs">
+      <div className="z-20 flex flex-wrap items-center justify-between gap-2 p-2 bg-[#09090b]/95 backdrop-blur-md border-b border-white/[0.06] text-xs transition-colors">
         
         {/* Layer Control Bar */}
         <div className="flex flex-wrap items-center gap-1.5 font-medium">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 text-zinc-400 font-semibold border-r border-white/[0.06]">
-            <Layers className="w-3.5 h-3.5 text-cyan-400/60" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1 text-zinc-600 dark:text-zinc-400 font-semibold border-r border-black/[0.08] dark:border-white/[0.06]">
+            <Layers className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400/60" />
             <span>Layer Control</span>
           </div>
 
@@ -195,8 +214,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             onClick={() => setOpticalLayerActive(!opticalLayerActive)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               opticalLayerActive
-                ? 'bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20'
-                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/20 font-semibold'
+                : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 hover:bg-black/[0.04] dark:hover:bg-white/[0.04]'
             }`}
           >
             {opticalLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -208,8 +227,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             onClick={() => setSarLayerActive(!sarLayerActive)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               sarLayerActive
-                ? 'bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20'
-                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/20 font-semibold'
+                : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 hover:bg-black/[0.04] dark:hover:bg-white/[0.04]'
             }`}
           >
             {sarLayerActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -221,8 +240,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             onClick={() => setChangeVectorActive(!changeVectorActive)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-none transition-all duration-150 cursor-pointer text-[11px] ${
               changeVectorActive
-                ? 'bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/20'
-                : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/20 font-semibold'
+                : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 hover:bg-black/[0.04] dark:hover:bg-white/[0.04]'
             }`}
           >
             {changeVectorActive ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -231,9 +250,9 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         </div>
 
         {/* Target Bounding Indicator Pill */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-none bg-cyan-500/8 ring-1 ring-cyan-500/15 text-xs font-mono text-cyan-400 truncate max-w-xs">
-          <Sparkles className="w-3 h-3 shrink-0" />
-          <span className="truncate font-medium">Target: {selectedQuery.label}</span>
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-none bg-cyan-500/10 ring-1 ring-cyan-500/20 text-xs font-mono text-cyan-700 dark:text-cyan-400 truncate max-w-xs font-semibold">
+          <Sparkles className="w-3 h-3 shrink-0 text-cyan-600 dark:text-cyan-400" />
+          <span className="truncate">Target: {selectedQuery.label}</span>
         </div>
 
       </div>
@@ -242,21 +261,21 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       <div ref={mapContainerRef} className="w-full flex-1 z-10 relative" />
 
       {/* Spatial Status Bar */}
-      <div className="z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#09090b]/95 backdrop-blur-md border-t border-white/[0.06] text-[10px] sm:text-xs font-mono text-zinc-400">
+      <div className="z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#09090b]/95 backdrop-blur-md border-t border-white/[0.06] text-[10px] sm:text-xs font-mono text-zinc-600 dark:text-zinc-400 transition-colors">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          <span className="flex items-center text-cyan-400/80">
+          <span className="flex items-center text-cyan-600 dark:text-cyan-400/80 font-semibold">
             <Crosshair className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1" />
-            CRS: <strong className="ml-1 text-zinc-200">EPSG:4326</strong>
+            CRS: <strong className="ml-1 text-slate-900 dark:text-zinc-200">EPSG:4326</strong>
           </span>
-          <span className="text-zinc-700 hidden sm:inline">|</span>
+          <span className="text-zinc-400 dark:text-zinc-700 hidden sm:inline">|</span>
           <span className="truncate">
-            Basemap: <strong className="text-zinc-300">Esri Dark Gray</strong>
+            Basemap: <strong className="text-slate-900 dark:text-zinc-300">{theme === 'light' ? 'Esri Light Gray' : 'Esri Dark Gray'}</strong>
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-zinc-400">
-          <span>Lat: <strong className="text-emerald-400">{cursorCoords.lat.toFixed(5)}° N</strong></span>
-          <span>Lng: <strong className="text-emerald-400">{cursorCoords.lng.toFixed(5)}° E</strong></span>
+        <div className="flex items-center gap-3 text-zinc-600 dark:text-zinc-400">
+          <span>Lat: <strong className="text-emerald-600 dark:text-emerald-400">{cursorCoords.lat.toFixed(5)}° N</strong></span>
+          <span>Lng: <strong className="text-emerald-600 dark:text-emerald-400">{cursorCoords.lng.toFixed(5)}° E</strong></span>
         </div>
       </div>
     </div>

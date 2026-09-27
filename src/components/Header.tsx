@@ -9,13 +9,17 @@ import {
   BarChart3, 
   FileText, 
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: ViewTab;
   setActiveTab: (tab: ViewTab) => void;
   latencyMs?: number;
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
 }
 
 const TABS: { key: ViewTab; label: string; icon: React.ReactNode }[] = [
@@ -24,9 +28,15 @@ const TABS: { key: ViewTab; label: string; icon: React.ReactNode }[] = [
   { key: 'reports', label: 'Execution Reports', icon: <FileText className="w-3.5 h-3.5" /> },
 ];
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, latencyMs = 140 }) => {
+export const Header: React.FC<HeaderProps> = ({ 
+  activeTab, 
+  setActiveTab, 
+  latencyMs = 140,
+  theme,
+  toggleTheme
+}) => {
   return (
-    <header className="sticky top-0 z-50 bg-[#09090b]/90 backdrop-blur-xl border-b border-white/[0.06]">
+    <header className="sticky top-0 z-50 bg-[#09090b] dark:bg-[#09090b]/90 light:bg-white/90 backdrop-blur-xl border-b border-white/[0.06] dark:border-white/[0.06] light:border-black/[0.08] transition-colors">
       <div className="max-w-[1920px] mx-auto px-3 sm:px-5 py-2.5 flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-4">
         
         {/* Left Branding & ISRO Badge */}
@@ -95,9 +105,30 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, latency
           </div>
         </nav>
 
-        {/* Right — System Telemetry Badges (Rounded Pills) */}
+        {/* Right — System Telemetry Badges & Theme Toggle */}
         <div className="flex flex-wrap items-center justify-center lg:justify-end gap-1.5 sm:gap-2 w-full lg:w-auto">
           
+          {/* Theme Toggle Button */}
+          <motion.button
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="badge-pill bg-zinc-800/80 hover:bg-zinc-700/80 text-zinc-100 border-white/[0.08] cursor-pointer transition-all flex items-center gap-1.5 py-1 px-2.5"
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <span className="text-zinc-200">Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-sky-400" />
+                <span className="text-zinc-800">Dark Mode</span>
+              </>
+            )}
+          </motion.button>
+
           {/* GPU CUDA Status */}
           <div className="badge-pill bg-emerald-500/10 text-emerald-400 border-emerald-500/15">
             <Cpu className="w-3 h-3 sm:w-3.5 sm:h-3.5" />

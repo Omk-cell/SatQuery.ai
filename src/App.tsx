@@ -7,10 +7,27 @@ import { ViewTab, PresetQuery, QueryResultLog, HistoricalReport } from './types'
 import { PRESET_QUERIES, INITIAL_HISTORICAL_REPORTS } from './data/mockData';
 
 export const App: React.FC = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('satquery_theme');
+    return (saved === 'light' || saved === 'dark') ? saved : 'light';
+  });
+
   const [activeTab, setActiveTab] = useState<ViewTab>('dashboard');
   const [selectedQuery, setSelectedQuery] = useState<PresetQuery>(PRESET_QUERIES[0]);
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
   const [reports, setReports] = useState<HistoricalReport[]>(INITIAL_HISTORICAL_REPORTS);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem('satquery_theme', nextTheme);
+  };
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('dark', 'light');
+    root.classList.add(theme);
+  }, [theme]);
 
   const [activeLog, setActiveLog] = useState<QueryResultLog>({
     status: 'success',
@@ -109,11 +126,15 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-50 flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
+      theme === 'dark' ? 'bg-[#09090b] text-zinc-50' : 'bg-slate-50 text-slate-900'
+    }`}>
       <Header 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         latencyMs={activeLog.execution_time_ms} 
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       <main className="flex-1">
@@ -124,6 +145,7 @@ export const App: React.FC = () => {
             onExecuteQuery={handleExecuteQuery}
             isExecuting={isExecuting}
             activeLog={activeLog}
+            theme={theme}
           />
         )}
 
